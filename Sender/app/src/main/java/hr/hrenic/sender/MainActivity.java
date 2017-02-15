@@ -32,8 +32,12 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Entry> entries = Entry.getEntries();
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
-        intent.setType("*/*");
-        intent.putParcelableArrayListExtra("hrenic", entries);
+        intent.setType("text/plain");
+        Bundle b = new Bundle();
+        b.putString("hrenic", "dijela bogati");
+        intent.putExtras(b);
+
+//        intent.putParcelableArrayListExtra("hrenic", entries);
 //        usingParcelable(intent, entries);
 //        usingJSON(intent, entries);
         startIntent(intent);
