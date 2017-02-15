@@ -15,19 +15,24 @@ import java.util.List;
  */
 public class Entry implements Parcelable {
 
+    private static final ArrayList<Entry> DUMMY_ENTRIES;
+
+    static {
+        DUMMY_ENTRIES = new ArrayList<>();
+        DUMMY_ENTRIES.add(new Entry(1, "Jedan"));
+        DUMMY_ENTRIES.add(new Entry(2, "Dva"));
+        DUMMY_ENTRIES.add(new Entry(3, "Tri"));
+        DUMMY_ENTRIES.add(new Entry(4, "Četiri"));
+        DUMMY_ENTRIES.add(new Entry(5, "Pet"));
+    }
+
     /**
      * This is a dummy function and returns data for testing purposes
      *
      * @return dummy data
      */
     public static ArrayList<Entry> getEntries() {
-        ArrayList<Entry> list = new ArrayList<>();
-        list.add(new Entry(1, "Jedan"));
-        list.add(new Entry(2, "Dva"));
-        list.add(new Entry(3, "Tri"));
-        list.add(new Entry(4, "Četiri"));
-        list.add(new Entry(5, "Pet"));
-        return list;
+        return DUMMY_ENTRIES;
     }
 
     /*
