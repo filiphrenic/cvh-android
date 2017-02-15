@@ -11,8 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="hr.hrenic.sender.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+    <Button
+        android:text="@string/send"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/send_button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
 </RelativeLayout>
