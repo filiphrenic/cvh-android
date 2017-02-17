@@ -6,7 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 public class MainActivity extends AppCompatActivity {
+
+    static String ACTION_SEND = "hr.hrenic.action.SEND";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +29,19 @@ public class MainActivity extends AppCompatActivity {
                     "Used only when data is sent from another app",
                     Toast.LENGTH_LONG
             ).show();
-        } else if (Intent.ACTION_SEND.equals(action)) {
-//            ArrayList<Parcelable> xx = intent.getParcelableArrayListExtra("hrenic");
-//            for (Parcelable p : xx) {
-//                tv.append(p.toString());
-//            }
+        } else if (ACTION_SEND.equals(action)) {
 
+            String json = intent.getStringExtra(Intent.EXTRA_TEXT);
+            try {
+                JSONArray jsonArray = new JSONArray(json);
+                json = jsonArray.toString(2);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            tv.setText(json);
 
-            Bundle b = intent.getExtras();
-            tv.setText(b.getString("hrenic", "default"));
+        } else {
+            Toast.makeText(this, action, Toast.LENGTH_LONG).show();
         }
     }
 }

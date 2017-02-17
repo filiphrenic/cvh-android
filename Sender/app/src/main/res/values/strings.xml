@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Sender</string>
-    <string name="send">Send</string>
+    <string name="send_json">Send JSON</string>
 </resources>

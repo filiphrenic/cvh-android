@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
-import hr.hrenic.sender.model.Entry;
+import hr.hrenic.model.Entry;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,42 +21,44 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.send_button).setOnClickListener(
+        ArrayList<Entry> entries = Entry.getEntries();
+        try {
+            JSONArray array = Entry.toJSON(entries);
+            ((TextView) findViewById(R.id.tv_show)).setText(array.toString(2));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        findViewById(R.id.send_json).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MainActivity.this.send(v);
+                        MainActivity.this.sendJSON(v);
                     }
                 }
         );
     }
 
 
-    public void send(View view) {
+    public void sendJSON(View view) {
         ArrayList<Entry> entries = Entry.getEntries();
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        Bundle b = new Bundle();
-        b.putString("hrenic", "dijela bogati");
-        intent.putExtras(b);
+        String json = "error";
+        try {
+            json = Entry.toJSON(entries).toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-//        intent.putParcelableArrayListExtra("hrenic", entries);
-//        usingParcelable(intent, entries);
-//        usingJSON(intent, entries);
+        Intent intent = new Intent();
+        intent.setAction(Entry.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, json);
+
         startIntent(intent);
     }
 
-
-    private void usingParcelable(Intent intent, ArrayList<Entry> entries) {
-        intent.putParcelableArrayListExtra("hrenic", entries);
-    }
-
-    private void usingJSON(Intent intent, ArrayList<Entry> entries) {
-        // TODO
-    }
-
     private void startIntent(Intent intent) {
+        intent = Intent.createChooser(intent, "Choose");
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
             Toast.makeText(this, "Intent sent", Toast.LENGTH_SHORT).show();
