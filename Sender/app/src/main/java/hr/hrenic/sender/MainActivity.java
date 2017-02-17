@@ -68,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         startIntent(intent);
     }
 
+    /**
+     * Send entries as parcelables
+     *
+     * @param view
+     */
     public void sendParcelable(View view) {
         ArrayList<Entry> entries = Entry.getEntries();
 
@@ -79,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
         startIntent(intent);
     }
 
+    /**
+     * Start an intent by creating a chooser
+     *
+     * @param intent
+     */
     private void startIntent(Intent intent) {
         intent = Intent.createChooser(intent, "Choose");
         if (intent.resolveActivity(getPackageManager()) != null) {

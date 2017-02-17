@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 tv.setText(json);
                 break;
 
-            
+
             case Entry.ACTION_SEND_MULTI:
 
                 ArrayList<Entry> entries = intent.getParcelableArrayListExtra(Entry.EXTRA);
