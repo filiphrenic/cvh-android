@@ -37,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        findViewById(R.id.send_parc).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.this.sendParcelable(v);
+            }
+        });
     }
 
 
@@ -53,6 +60,17 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction(Entry.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, json);
+
+        startIntent(intent);
+    }
+
+    public void sendParcelable(View view) {
+        ArrayList<Entry> entries = Entry.getEntries();
+
+        Intent intent = new Intent();
+        intent.setAction(Entry.ACTION_SEND_MULTI);
+        intent.setType("text/plain");
+        intent.putParcelableArrayListExtra("extra", entries);
 
         startIntent(intent);
     }

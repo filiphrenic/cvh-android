@@ -9,9 +9,11 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    static String ACTION_SEND = "hr.hrenic.action.SEND";
+import hr.hrenic.model.Entry;
+
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +25,44 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv = (TextView) findViewById(R.id.text_view);
 
-        if (Intent.ACTION_MAIN.equals(action)) {
-            Toast.makeText(
-                    this,
-                    "Used only when data is sent from another app",
-                    Toast.LENGTH_LONG
-            ).show();
-        } else if (ACTION_SEND.equals(action)) {
+        String json;
 
-            String json = intent.getStringExtra(Intent.EXTRA_TEXT);
-            try {
-                JSONArray jsonArray = new JSONArray(json);
-                json = jsonArray.toString(2);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            tv.setText(json);
+        switch (action) {
 
-        } else {
-            Toast.makeText(this, action, Toast.LENGTH_LONG).show();
+
+            case Intent.ACTION_MAIN:
+                Toast.makeText(
+                        this,
+                        "Used only when data is sent from another app",
+                        Toast.LENGTH_LONG
+                ).show();
+                break;
+
+
+            case Entry.ACTION_SEND:
+                json = intent.getStringExtra(Intent.EXTRA_TEXT);
+                try {
+                    json = new JSONArray(json).toString(2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                tv.setText(json);
+                break;
+
+            case Entry.ACTION_SEND_MULTI:
+
+                ArrayList<Entry> entries = intent.getParcelableArrayListExtra("extra");
+                json = "error";
+                try {
+                    json = Entry.toJSON(entries).toString(2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                tv.setText(json);
+                break;
+
         }
     }
 }

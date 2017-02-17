@@ -17,9 +17,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:text="@string/send_json"
         />
+
+    <Button
+        android:id="@+id/send_parc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/send_json"
+        android:text="@string/send_parc"/>
 
     <TextView
         android:id="@+id/tv_show"
@@ -27,5 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/send_json"/>
+        android:layout_below="@+id/send_parc"/>
+
+
 </RelativeLayout>
