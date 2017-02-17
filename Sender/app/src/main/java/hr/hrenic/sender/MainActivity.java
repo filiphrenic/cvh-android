@@ -46,7 +46,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Send entries using JSON serialization
+     *
+     * @param view
+     */
     public void sendJSON(View view) {
         ArrayList<Entry> entries = Entry.getEntries();
         String json = "error";
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction(Entry.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, json);
+        intent.putExtra(Entry.EXTRA, json);
 
         startIntent(intent);
     }
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction(Entry.ACTION_SEND_MULTI);
         intent.setType("text/plain");
-        intent.putParcelableArrayListExtra("extra", entries);
+        intent.putParcelableArrayListExtra(Entry.EXTRA, entries);
 
         startIntent(intent);
     }

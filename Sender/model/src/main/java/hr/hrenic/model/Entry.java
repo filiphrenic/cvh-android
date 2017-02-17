@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class Entry implements Parcelable {
 
+    public static final String EXTRA = "hr.hrenic.extra.ENTRIES";
     public static final String ACTION_SEND = "hr.hrenic.action.SEND";
     public static final String ACTION_SEND_MULTI = "hr.hrenic.action.SEND_MULTI";
 

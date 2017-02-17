@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import hr.hrenic.model.Entry;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             case Entry.ACTION_SEND:
-                json = intent.getStringExtra(Intent.EXTRA_TEXT);
+                json = intent.getStringExtra(Entry.EXTRA);
                 try {
                     json = new JSONArray(json).toString(2);
                 } catch (JSONException e) {
@@ -50,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
                 tv.setText(json);
                 break;
 
+            
             case Entry.ACTION_SEND_MULTI:
 
-                ArrayList<Entry> entries = intent.getParcelableArrayListExtra("extra");
+                ArrayList<Entry> entries = intent.getParcelableArrayListExtra(Entry.EXTRA);
                 json = "error";
                 try {
                     json = Entry.toJSON(entries).toString(2);
