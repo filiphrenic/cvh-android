@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import hr.hrenic.model.Entry;
 
@@ -43,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
             case Entry.ACTION_SEND:
                 json = intent.getStringExtra(Entry.EXTRA);
                 try {
-                    json = new JSONArray(json).toString(2);
+                    JSONArray array = new JSONArray(json);
+                    json = array.toString(2);
+                    List<Entry> entries = Entry.fromJSON(array);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
